@@ -4,11 +4,11 @@
 typedef struct avl{
     struct avl* fg;
     struct avl* fd;
-    int valeur;
+    char valeur[32];
     int eq;
 }AVL;
 
-AVL* creerAVL(int e){
+AVL* creerAVL(char e[]){
     AVL* avl=malloc(sizeof(AVL));
     if(avl==NULL){
         exit(1);
@@ -20,7 +20,7 @@ AVL* creerAVL(int e){
     return avl;
 }
 
-AVL* insertionAVL(AVL* avl,int e,int* h){
+AVL* insertionAVL(AVL* avl,char e[],int* h){
     if(avl==NULL){
         *h=1;
         avl=creerAVL(e);
@@ -32,13 +32,13 @@ AVL* insertionAVL(AVL* avl,int e,int* h){
     if(e>avl->valeur){
         avl->fd=insertionAVL(avl->fd,e);
     }
-    if(e==avl->valeur){// si je trouve que la valeur existe déjà on ne modifie rien
+    if(e==avl->valeur){
         *h=0
     }
     if(*h!=0){
         avl->eq=avl->eq+*h;
         avl=equilibrageAVL(avl);
-        if(avl->eq==0){//si avl est équilibré alors *h=0 car ça ne change plus rien pour l'eq des noeuds du dessus
+        if(avl->eq==0){
             *h=0;
         }
         else{
@@ -103,7 +103,7 @@ AVL* equilibrageAVL(AVL* a){
     return a;
 }
 
-AVL* insertionAVL(AVL* a,int e,int* h){
+AVL* insertionAVL(AVL* a,char e[],int* h){
     if(a==NULL){
         *h=1;
         return creerAVL(e);
@@ -132,7 +132,7 @@ AVL* insertionAVL(AVL* a,int e,int* h){
 }
 
 
-AVL* suppMax(AVL* a,int* pe,int* h){
+AVL* suppMax(AVL* a,char* pe[32],int* h){
     if(a->fg!=NULL){
         a->fg=suppMax(a->fg,pe);
         *h=-*h;
