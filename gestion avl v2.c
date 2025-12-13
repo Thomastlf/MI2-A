@@ -26,6 +26,26 @@ AVL* creerAVL(char id[]){
   return avl;
 }
 
+AVL* rechercher_usine(AVL* racine, const char id_recherche[]) {
+    if (racine == NULL) {
+        return NULL;
+    }
+  
+    int comparaison = strcmp(id_recherche, racine->id);
+
+    if (comparaison == 0) {
+        return racine;
+    }
+    else if (comparaison < 0) {
+        return rechercher_usine(racine->fg, id_recherche);
+    }
+    else {
+        return rechercher_usine(racine->fd, id_recherche);
+    }
+}
+
+
+
 AVL* rotationGauche(AVL* avl){
     AVL* pivot=avl->fd;
     int eq_a=avl->eq;
