@@ -1,30 +1,112 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+#define ID_SIZE 64 
 
 typedef struct avl{
-  struct avl* fg;
-  struct avl* fd;
-  int eq;
-  char id[32];
-  float capacite_max;
-  float volume_total_capte;
-  float volume_total_traite;
-}AVL;
+    struct avl* fg;
+    struct avl* fd;
+    int eq;
+    char id[ID_SIZE]; 
+    double capacite_max;
+    double volume_total_capte;
+    double volume_total_traite;
+} AVL;
 
-AVL* creerAVL(char id[]){
-  AVL* avl=malloc(sizeof(AVL));
-  if(avl==NULL){
-    exit(1);
-  }
-  avl->fg=NULL;
-  avl->fd=NULL;
-  avl->eq=0;
-  strcpy(avl->id,id)
-  avl->capacite_max=0;
-  avl->volume_total_capte=0;
-  avl->volume_total_traite=0;
-  return avl;
+AVL* creerAVL(const char id[]){ 
+    AVL* avl = malloc(sizeof(AVL));
+    if (avl == NULL){
+        fprintf(stderr, "Erreur: Allocation memoire impossible pour creerAVL.\n");
+        exit(EXIT_FAILURE); 
+    }
+    avl->fg = NULL;
+    avl->fd = NULL;
+    avl->eq = 0;
+    
+    strncpy(avl->id, id, ID_SIZE - 1); // garantit qu'on ne dépasse jamais la taille allouée pour le tableau. (sécurité)
+    avl->id[ID_SIZE - 1] = '\0';
+    
+    avl->capacite_max = 0.0;
+    avl->volume_total_capte = 0.0;
+    avl->volume_total_traite = 0.0;
+    
+    return avl;
 }
+
+AVL* rechercher_usine(AVL* racine, const char id_recherche[]) {
+    if (racine == NULL) {
+        return NULL;
+    }
+    
+    int comparaison = strcmp(id_recherche, racine->id);
+
+    if (comparaison == 0) {
+        return racine;
+    }
+    else if (comparaison < 0) {
+        return rechercher_usine(racine->fg, id_recherche);
+    }
+    else {
+        return rechercher_usine(racine->fd, id_recherche);
+    }
+}
+
+typedef struct noeud_distribution noeud_distribution; 
+
+typedef struct lien_enfant {
+    noeud_distribution *enfant; 
+    double pourcentage_fuite;    
+    double volume_fuite_calcule; 
+    struct lien_enfant *suivant;
+} lien_enfant;
+
+typedef struct noeud_distribution {
+    struct noeud_distribution *fg;
+    struct noeud_distribution *fd;
+    int eq;                      
+    
+    char id[ID_SIZE];            
+    char id_usine[ID_SIZE];      
+    double flux_entrant;         
+    
+    lien_enfant *enfants;        
+    int nb_enfants;              
+} noeud_distribution;
+
+noeud_distribution* creerNoeudDistribution(const char id[], const char id_usine[]) {
+    noeud_distribution* noeud = malloc(sizeof(noeud_distribution)); 
+    if (noeud == NULL) {
+        fprintf(stderr, "Erreur: Allocation memoire impossible pour creerNoeud.\n");
+        exit(EXIT_FAILURE); 
+    }
+    
+    noeud->fg = NULL;
+    noeud->fd = NULL;
+    noeud->eq = 0;
+    strncpy(noeud->id, id, ID_SIZE - 1); 
+    noeud->id[ID_SIZE - 1] = '\0';
+    
+    strncpy(noeud->id_usine, id_usine, ID_SIZE - 1);
+    noeud->id_usine[ID_SIZE - 1] = '\0';
+
+    noeud->flux_entrant = 0.0;
+    noeud->enfants = NULL;
+    noeud->nb_enfants = 0;
+    return noeud;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 AVL* rotationGauche(AVL* avl){
     AVL* pivot=avl->fd;
@@ -38,6 +120,13 @@ AVL* rotationGauche(AVL* avl){
     pivot->eq=min(eq_a-2,eq_a+eq_p-2,eq_p-1);
     return pivot;
 }
+
+
+
+
+
+
+
 
 AVL* rotationDroite(AVL* avl){
     AVL* pivot=avl->fg;
