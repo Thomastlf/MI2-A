@@ -4,6 +4,17 @@
 
 #define ID_SIZE 64 
 
+void verifier_erreur_fichier(FILE* fichier){//procédure permettant de vérifier qu'il n y a pas eu d'erreur lors de l'ouverture du fichier
+  if (fichier==NULL){
+    printf("Erreur lors de l'ouverture du fichier.\n");
+    exit(EXIT_FAILURE);}
+}
+
+FILE* fichier= fopen(fichier_combattant,"r");
+fgets(c->nom,TAILLE_NOM_COMPETENCE,fichier);
+fscanf(fichier,"%s %s %d %d %d",c->type,c->cible,&(c->valeur),&(c->tour_actif),&(c->tour_recharge));
+fclose(fichier);
+
 typedef struct avl{
     struct avl* fg;
     struct avl* fd;
