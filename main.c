@@ -1,11 +1,6 @@
+#include "types.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-int main(int argc, char** argv){
-    
-    if (argc != 4){
-        exit(1);
-    }
-    
-  return 0;
-}
+int main(int argc, char *argv[]) {
