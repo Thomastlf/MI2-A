@@ -59,4 +59,7 @@ void lecture(const char* nom_fichier, AVL** avl){//procédure qui va lire toutes
   }
   fclose(fichier);
 }
-      
+
+void ecrire(Avl* avl,const char* nom_fichier,const char* mode){
+
+}
