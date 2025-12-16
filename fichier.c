@@ -17,7 +17,7 @@ void lecture(const char* nom_fichier, AVL** avl){//procédure qui va lire toutes
   verifier_erreur_fichier(fichier);
   char ligne[TAILLE_LIGNE];
   while(fgets(ligne,TAILLE_LIGNE,fichier)!=NULL){//tant qu'il y a des lignes non traitées dans le fichier..
-    ligne[strcspn(ligne, "\r\n")] = '\0';//enlève le retour à la ligne
+    ligne[strcspn(ligne,"\r\n")] ='\0';//enlève le retour à la ligne
     char* colonne[5];
     for(int i=0; i<5; i++){ 
       colonne[i] = NULL;
@@ -36,9 +36,8 @@ void lecture(const char* nom_fichier, AVL** avl){//procédure qui va lire toutes
     if(!strcmp(colonne[0],"-") && !strcmp(colonne[2],"-") && !strcmp(colonne[4],"-")){//si la ligne correspond à une usine
       AVL* est_dans_avl=recherche(*avl,colonne[1]);
       if(est_dans_avl==NULL){//usine pas encore crée
-        AVL* nouveau=creerAVL(colonne[1]);
+        AVL* nouveau=creerAVL(colonne[1],atof(colonne[3]);
         *avl=insertAVL(*avl,nouveau);
-        nouveau->capacite_max=atof(colonne[3]);
       }
       else{
         est_dans_avl->capacite_max=atof(colonne[3]);
@@ -47,7 +46,7 @@ void lecture(const char* nom_fichier, AVL** avl){//procédure qui va lire toutes
     else if(!strcmp(colonne[0],"-") && strcmp(colonne[3],"-")){//si la ligne correspond à un captage
       AVL* est_dans_avl=recherche(*avl,colonne[2]);
       if(est_dans_avl==NULL){//usine pas encore créer
-        AVL* nouveau=creerAVL(colonne[2]);
+        AVL* nouveau=creerAVL(colonne[2],0);
         *avl=insertAVL(*avl,nouveau);
         nouveau->volume_total_capte=nouveau->volume_total_capte+atof(colonne[3]);
         nouveau->volume_total_traite=nouveau->volume_total_traite+atof(colonne[3])*(1-atof(colonne[4])/100);
