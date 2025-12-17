@@ -103,16 +103,18 @@ Usine *rotation_droite_usine(Usine *a) {
     return pivot;
 }
 
-Usine *equilibrer_usine(Usine *a) {
+Usine* equilibrer_usine(Usine *a) {
     if (a->equilibre >= 2) {
-        if (a->droite->equilibre >= 0) return rotation_gauche_usine(a);
-        else {
+        if (a->droite->equilibre >= 0) {
+            return rotation_gauche_usine(a);
+        } else {
             a->droite = rotation_droite_usine(a->droite);
             return rotation_gauche_usine(a);
         }
     } else if (a->equilibre <= -2) {
-        if (a->gauche->equilibre <= 0) return rotation_droite_usine(a);
-        else {
+        if (a->gauche->equilibre <= 0) {
+            return rotation_droite_usine(a);
+        } else {
             a->gauche = rotation_gauche_usine(a->gauche);
             return rotation_droite_usine(a);
         }
@@ -146,16 +148,18 @@ Noeud *rotation_droite_noeud(Noeud *a) {
     return pivot;
 }
 
-Noeud *equilibrer_noeud(Noeud *a) {
+Noeud* equilibrer_noeud(Noeud *a) {
     if (a->equilibre >= 2) {
-        if (a->avl_droite->equilibre >= 0) return rotation_gauche_noeud(a);
-        else {
+        if (a->avl_droite->equilibre >= 0) {
+            return rotation_gauche_noeud(a);
+        } else {
             a->avl_droite = rotation_droite_noeud(a->avl_droite);
             return rotation_gauche_noeud(a);
         }
     } else if (a->equilibre <= -2) {
-        if (a->avl_gauche->equilibre <= 0) return rotation_droite_noeud(a);
-        else {
+        if (a->avl_gauche->equilibre <= 0) {
+            return rotation_droite_noeud(a);
+        } else {
             a->avl_gauche = rotation_gauche_noeud(a->avl_gauche);
             return rotation_droite_noeud(a);
         }
@@ -200,7 +204,7 @@ Usine* inserer_usine(Usine *a, Usine *nouvelle, int *h) {
         }
         free(nouvelle);
         
-        *h = 0; // 
+        *h = 0; 
         return a;
     }
 
@@ -219,48 +223,83 @@ Usine* inserer_usine(Usine *a, Usine *nouvelle, int *h) {
     return a;
 }
 
-Noeud *creer_noeud(const char *id, float fuite) {
+Noeud* creer_noeud(const char *id, float fuite) {
     Noeud *n = malloc(sizeof(Noeud));
-    if (n == NULL) return NULL;
+    
+    if (n == NULL) {
+        return NULL;
+    }
+    
     n->id = dupliquer_chaine(id);
     n->pourcentage_fuite = fuite;
-    n->nb_enfants = 0; n->est_libere = 0;
+    n->nb_enfants = 0;
+    n->est_libere = 0;
     n->liste_enfants = NULL;
-    n->avl_gauche = n->avl_droite = NULL;
+    n->avl_gauche = NULL;
+    n->avl_droite = NULL;
     n->equilibre = 0;
+    
     return n;
 }
 
-Noeud *inserer_noeud_avl(Noeud *a, Noeud *nouv, int *h) {
-    if (a == NULL) { *h = 1; return nouv; }
-    int comp = strcmp(nouv->id, a->id);
+Noeud* inserer_noeud_avl(Noeud *a, Noeud *nouveau, int *h) {
+    if (a == NULL) {
+        *h = 1; 
+        return nouveau;
+    }
+
+    int comp = strcmp(nouveau->id, a->id);
+
     if (comp < 0) {
-        a->avl_gauche = inserer_noeud_avl(a->avl_gauche, nouv, h);
+        a->avl_gauche = inserer_noeud_avl(a->avl_gauche, nouveau, h);
         *h = -(*h);
-    } else if (comp > 0) {
-        a->avl_droite = inserer_noeud_avl(a->avl_droite, nouv, h);
-    } else {
-        if (nouv->id) free(nouv->id);
-        free(nouv);
-        *h = 0; return a;
+    } 
+    else if (comp > 0) {
+        a->avl_droite = inserer_noeud_avl(a->avl_droite, nouveau, h);
+    } 
+    else {
+        if (nouveau->id != NULL) {
+            free(nouveau->id);
+        }
+        free(nouveau);
+        
+        *h = 0; 
+        return a;
     }
+
     if (*h != 0) {
-        a->equilibre += *h;
+        a->equilibre = a->equilibre + *h;
+        
         a = equilibrer_noeud(a);
-        if (a->equilibre == 0) *h = 0;
-        else *h = 1;
+        
+        if (a->equilibre == 0) {
+            *h = 0; 
+        } else {
+            *h = 1; 
+        }
     }
+
     return a;
 }
 
 void ajouter_enfant(Noeud *parent, Noeud *enfant) {
-    if (!parent || !enfant) return;
+    if (parent == NULL) {
+        return;
+    }
+    if (enfant == NULL) {
+        return;
+    }
+    
     Lien *l = malloc(sizeof(Lien));
-    if (!l) return;
+    
+    if (l == NULL) {
+        return;
+    }
+    
     l->enfant = enfant;
     l->suivant = parent->liste_enfants;
     parent->liste_enfants = l;
-    parent->nb_enfants++;
+    parent->nb_enfants = parent->nb_enfants + 1;
 }
 
 void liberer_arbre_usine(Usine *a) {
@@ -279,11 +318,20 @@ void liberer_arbre_usine(Usine *a) {
 }
 
 void liberer_graphe(Noeud *racine) {
-    if (racine == NULL || racine->est_libere == 1) return;
+    if (racine == NULL) {
+        return;
+    }
+
+    if (racine->est_libere == 1) {
+        return;
+    }
+
     racine->est_libere = 1;
     Lien *courant = racine->liste_enfants;
+
     while (courant != NULL) {
         liberer_graphe(courant->enfant);
+        
         Lien *temp = courant;
         courant = courant->suivant;
         free(temp);
@@ -291,10 +339,16 @@ void liberer_graphe(Noeud *racine) {
 }
 
 void liberer_avl_noeud(Noeud *racine) {
-    if (racine != NULL) {
-        liberer_avl_noeud(racine->avl_gauche);
-        liberer_avl_noeud(racine->avl_droite);
-        if (racine->id != NULL) free(racine->id);
-        free(racine);
+    if (racine == NULL) {
+        return;
     }
+
+    liberer_avl_noeud(racine->avl_gauche);
+    liberer_avl_noeud(racine->avl_droite);
+
+    if (racine->id != NULL) {
+        free(racine->id);
+    }
+
+    free(racine);
 }
