@@ -30,7 +30,7 @@ void lecture(const char* nom_fichier,Usine** usine){//procédure qui va lire tou
       i++;
     }
     if (!colonne[0] || !colonne[1] || !colonne[2] || !colonne[3] || !colonne[4]){
-      continue
+      continue;
     }
     if(!strcmp(colonne[0],"-") && !strcmp(colonne[2],"-") && !strcmp(colonne[4],"-")){//si la ligne correspond à une usine
       Usine* est_dans_avl=recherche(*usine,colonne[1]);
