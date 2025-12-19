@@ -174,7 +174,6 @@ Usine *creer_usine(const char *id, long capa) {
     u->capa_max = capa; 
     u->total_capte = 0; u->total_traite = 0; 
     u->gauche = u->droite = NULL;
-    u->stockages_initiaux = NULL;
     u->equilibre = 0;
     return u;
 }
