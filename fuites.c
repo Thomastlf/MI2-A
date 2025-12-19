@@ -5,13 +5,6 @@
 
 #define TAILLE_LIGNE 512
 
-void verifier_erreur_fichier(FILE* fichier){//procédure permettant de vérifier qu'il n'y a pas eu d'erreur lors de l'ouverture du fichier
-  if (fichier==NULL){
-    perror("Erreur lors de l'ouverture du fichier.");
-    exit(EXIT_FAILURE);
-  }
-}
-
 Noeud* lire_fuites(const char* nom_fichier, const char* usine_id, Noeud** noeud) {
   FILE* fichier=fopen(nom_fichier, "r");
   verifier_erreur_fichier(fichier);
