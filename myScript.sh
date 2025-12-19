@@ -67,12 +67,12 @@ if [ "$commande" == "histo" ]; then #si la commande est un histo..
 	set xtics rotate by -45 scale 0 font ",8"
 	set boxwidth 0.8 relative
 	# --- IMAGE 1 : TOP 10 (Plus grandes usines) ---
-	set output 'wildwater_top10.png'
+	set output 'top10_${parametre}.png'
 	set title "10 Plus Grandes Usines ($parametre)"
 	# TRI : On trie numériquement (n) et inversé (r) sur la col 2 pour avoir les plus gros en premier
 	plot '< tail -n +2 "${FILE_TO_PLOT}" | sort -t";" -k2,2nr | head -n 10' using 0:2:xtic(1) with boxes lc rgb "#1A4974"
 	# --- IMAGE 2 : BOTTOM 50 (Plus petites usines) ---
-	set output 'wildwater_bottom50.png'
+	set output 'bottom50_${parametre}.png'
 	set title "50 Plus Petites Usines ($parametre)"
 	# TRI : On trie numériquement (n) sur la col 2 pour avoir les plus petits en premier
 	plot '< tail -n +2 "${FILE_TO_PLOT}" | sort -t";" -k2,2n | head -n 50' using 0:2:xtic(1) with boxes lc rgb "#6A8B9E"
@@ -81,7 +81,7 @@ EOF
     gnuplot "$GNUPLOT_SCRIPT"
     # Nettoyage
     rm "$GNUPLOT_SCRIPT"
-    if [ -f "wildwater_top10.png" ] && [ -f "wildwater_bottom50.png" ]; then
+    if [ -f "top10_${parametre}.png" ] && [ -f "bottom50_${parametre}.png" ]; then
         echo "✅ Succès : Images triées 'wildwater_top10.png' et 'wildwater_bottom50.png' générées."
     else
         echo "❌ Erreur : Une ou plusieurs images n'ont pas été créées."
