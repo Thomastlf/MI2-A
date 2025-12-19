@@ -33,7 +33,7 @@ void lecture(const char* nom_fichier,Usine** usine){//procédure qui va lire tou
       continue;
     }
     if(!strcmp(colonne[0],"-") && !strcmp(colonne[2],"-") && !strcmp(colonne[4],"-")){//si la ligne correspond à une usine
-      Usine* est_dans_avl=recherche(*usine,colonne[1]);
+      Usine* est_dans_avl=trouver_usine(*usine,colonne[1]);
       if(est_dans_avl==NULL){//usine pas encore crée
         Usine* nouveau=creerAVL(colonne[1],atof(colonne[3]));
         *usine=insertAVL(*usine,nouveau);
@@ -43,7 +43,7 @@ void lecture(const char* nom_fichier,Usine** usine){//procédure qui va lire tou
       }
     }
     else if(!strcmp(colonne[0],"-") && strcmp(colonne[3],"-")){//si la ligne correspond à un captage
-      Usine* est_dans_avl=recherche(*usine,colonne[2]);
+      Usine* est_dans_avl=trouver_usine(*usine,colonne[2]);
       if(est_dans_avl==NULL){//usine pas encore créer
         Usine* nouveau=creerAVL(colonne[2],0);
         *usine=insertAVL(*usine,nouveau);
@@ -91,7 +91,7 @@ void ecrire(Usine* usine,const char* nom_fichier,const char* mode){//fonction qu
     fprintf(fichier, "identifier;real volume (M.m³.year⁻¹)\n");
   }
   else{
-    fprintf(stderr, "Erreur : parametre '%s' incorrect\n", mode);
+    fprintf(stderr, "Erreur : parametre %s incorrect\n", mode);
     fclose(fichier);
     exit(EXIT_FAILURE);
   }
