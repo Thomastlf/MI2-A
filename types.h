@@ -43,6 +43,6 @@ void lecture(const char *fichier, Usine **racine);
 void liberer_arbre_usine(Usine *a);
 void liberer_avl_noeud(Noeud *racine);
 void ecrire(Usine *racine, const char *fichier, const char *type);
-float calculer_fuites(const char *fichier, const char *id_usine);
+double calculer_fuites(const char *fichier, const char *id_usine);
 
 #endif
