@@ -6,7 +6,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -g -O0
 
 # Fichiers sources C à compiler
-SRCS = main.c avl.c histo.c fuites.c
+SRCS = main.c avl.c histogramme.c fuites.c
 
 # Fichiers objets
 OBJS = $(SRCS:.c=.o)
