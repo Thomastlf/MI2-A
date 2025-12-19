@@ -90,9 +90,11 @@ void ecrire(Usine* usine,const char* nom_fichier,const char* mode){//fonction qu
   else if (strcmp(mode, "real") == 0){
     fprintf(fichier, "identifier;real volume (M.m³.year⁻¹)\n");
   }
-  
-  //à compléter !?
-  
+  else{
+    fprintf(stderr, "Erreur : parametre '%s' incorrect\n", mode);
+    fclose(fichier);
+    exit(EXIT_FAILURE);
+  }
   ecrire_rec(usine,fichier,mode);
   fclose(fichier);
 }
