@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
         snprintf(nom_fichier_sortie, sizeof(nom_fichier_sortie), "vol_%s.dat", option_cmd);
             
         ecrire(racine_avl, nom_fichier_sortie, option_cmd);
-        }
+        
     }
     
     // --- CAS 2 : LEAKS ---
