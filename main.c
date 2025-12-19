@@ -24,14 +24,12 @@ int main(int argc, char *argv[]) {
         }
         
         // Appel fonction : traiter_donnees_histo
-        if (lecture(fichier_donnees, &racine_avl) != 0) {
-            fprintf(stderr, "Erreur critique : Lecture fichier impossible.\n");
-            code_retour = 10;
-        } else {
-            char nom_fichier_sortie[256];
-            snprintf(nom_fichier_sortie, sizeof(nom_fichier_sortie), "vol_%s.dat", option_cmd);
+        lecture(fichier_donnees, &racine_avl)
+
+        char nom_fichier_sortie[256];
+        snprintf(nom_fichier_sortie, sizeof(nom_fichier_sortie), "vol_%s.dat", option_cmd);
             
-            ecrire(racine_avl, nom_fichier_sortie, option_cmd);
+        ecrire(racine_avl, nom_fichier_sortie, option_cmd);
         }
     }
     
