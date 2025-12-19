@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "avl.h"
+#include "types.h"
 
 #define TAILLE_LIGNE 512
 
 void verifier_erreur_fichier(FILE* fichier){//procédure permettant de vérifier qu'il n'y a pas eu d'erreur lors de l'ouverture du fichier
   if (fichier==NULL){
-    printf("Erreur lors de l'ouverture du fichier.\n");
+    perror("Erreur lors de l'ouverture du fichier CSV");
     exit(EXIT_FAILURE);
   }
 }
