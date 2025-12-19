@@ -34,7 +34,7 @@ Noeud* lire_fuites(const char* nom_fichier, const char* usine_id, Noeud** noeud)
     }
     if (strstr(colonne[1], "Storage") || strstr(colonne[1], "Junction") || strstr(colonne[1], "Service")) {//réseau de distribution aval
       char *id_amont=colonne[1]; 
-      Noeud *noeud_aval=recherche_avl(*noeud,id_aval);
+      Noeud *noeud_aval=trouver_noeud_avl(*noeud,id_aval);
       if (noeud_aval==NULL) {
         noeud_aval=creer_noeud(id_aval, fuite);
         *noeud=inserer_noeud_avl(*noeud,noeud_aval);
@@ -42,7 +42,7 @@ Noeud* lire_fuites(const char* nom_fichier, const char* usine_id, Noeud** noeud)
       else {
         noeud_aval->pourcentage_fuite=fuite;
       }
-      Noeud *noeud_amont=recherche_avl(*noeud,id_amont);
+      Noeud *noeud_amont=trouver_noeud_avl(*noeud,id_amont);
       if (noeud_amont == NULL) {
         noeud_amont=creer_noeud(id_amont, 0.0);
         *noeud=inserer_noeud_avl(*noeud,noeud_amont);
@@ -50,7 +50,7 @@ Noeud* lire_fuites(const char* nom_fichier, const char* usine_id, Noeud** noeud)
       ajouter_enfant(noeud_amont,noeud_aval);
     }
     else if (!strcmp(colonne[0],"-") && !strcmp(colonne[1],usine_id) && strstr(colonne[2],"Storage")) {//stockage
-      Noeud *noeud_aval=recherche_avl(*noeud,id_aval);
+      Noeud *noeud_aval=trouver_noeud_avl(*noeud,id_aval);
       if (noeud_aval == NULL) {
         noeud_aval=creer_noeud(id_aval,fuite);
         *noeud=inserer_noeud_avl(*noeud,noeud_aval);
