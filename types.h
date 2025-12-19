@@ -31,17 +31,18 @@ typedef struct Noeud {
     struct Noeud *avl_droite;
 } Noeud;
 
-int max2(int a, int b);
-int min2(int a, int b);
-int max3(int a, int b, int c);
-int min3(int a, int b, int c);
+void verifier_erreur_fichier(FILE* fichier);
+Usine* trouver_usine(Usine *root, const char *id);
+Usine* creer_usine(const char* id, long capa);
 Usine* inserer_usine(Usine *a, Usine *nouvelle, int *h);
+Noeud* creer_noeud(const char* id, float fuite);
 Noeud* inserer_noeud_avl(Noeud *a, Noeud *nouv, int *h);
+Noeud* trovuer_noeud_avl(Noeud *racine, const char *id);
+void ajouter_enfant(Noeud *parent, Noeud *enfant);
+void lecture(const char *fichier, Usine **racine);
 void liberer_arbre_usine(Usine *a);
-void liberer_arbre(Noeud *racine);
-int lecture(const char *fichier, Usine **racine);
+void liberer_avl_noeud(Noeud *racine);
 void ecrire(Usine *racine, const char *fichier, const char *type);
 float calculer_fuites(const char *fichier, const char *id_usine);
-void verifier_erreur_fichier(FILE* fichier);
 
 #endif
