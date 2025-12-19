@@ -317,7 +317,7 @@ void liberer_arbre_usine(Usine *a) {
     }
 }
 
-void liberer_graphe(Noeud *racine) {
+void liberer_arbre(Noeud *racine) {
     if (racine == NULL) {
         return;
     }
