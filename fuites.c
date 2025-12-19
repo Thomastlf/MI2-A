@@ -9,7 +9,8 @@ Noeud* lire_fuites(const char* nom_fichier, const char* usine_id, Noeud** noeud)
   FILE* fichier=fopen(nom_fichier, "r");
   verifier_erreur_fichier(fichier);
   Noeud* racine_arbre=creer_noeud(usine_id, 0.0);
-  *noeud=inserer_noeud_avl(*noeud, racine_arbre);
+  int h=0;
+  *noeud=inserer_noeud_avl(*noeud, racine_arbre,&h);
   char ligne[TAILLE_LIGNE];
   while (fgets(ligne,TAILLE_LIGNE,fichier) != NULL) {
     ligne[strcspn(ligne,"\r\n")] ='\0';//enlève le retour à la ligne
@@ -36,16 +37,18 @@ Noeud* lire_fuites(const char* nom_fichier, const char* usine_id, Noeud** noeud)
       char *id_amont=colonne[1]; 
       Noeud *noeud_aval=trouver_noeud_avl(*noeud,id_aval);
       if (noeud_aval==NULL) {
+        int h_aval=0;
         noeud_aval=creer_noeud(id_aval, fuite);
-        *noeud=inserer_noeud_avl(*noeud,noeud_aval);
+        *noeud=inserer_noeud_avl(*noeud,noeud_aval,&h_aval);
       } 
       else {
         noeud_aval->pourcentage_fuite=fuite;
       }
       Noeud *noeud_amont=trouver_noeud_avl(*noeud,id_amont);
       if (noeud_amont == NULL) {
+        int h_amont=0;
         noeud_amont=creer_noeud(id_amont, 0.0);
-        *noeud=inserer_noeud_avl(*noeud,noeud_amont);
+        *noeud=inserer_noeud_avl(*noeud,noeud_amont,&h_amont);
       }
       ajouter_enfant(noeud_amont,noeud_aval);
     }
@@ -53,7 +56,8 @@ Noeud* lire_fuites(const char* nom_fichier, const char* usine_id, Noeud** noeud)
       Noeud *noeud_aval=trouver_noeud_avl(*noeud,id_aval);
       if (noeud_aval == NULL) {
         noeud_aval=creer_noeud(id_aval,fuite);
-        *noeud=inserer_noeud_avl(*noeud,noeud_aval);
+        int h_aval=0;
+        *noeud=inserer_noeud_avl(*noeud,noeud_aval,&h_aval);
       }
       else {
         noeud_aval->pourcentage_fuite=fuite;
