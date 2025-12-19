@@ -39,9 +39,9 @@ int min3(int a, int b, int c);
 Usine* inserer_usine(Usine *a, Usine *nouvelle, int *h);
 Noeud* inserer_noeud_avl(Noeud *a, Noeud *nouv, int *h);
 void liberer_arbre_usine(Usine *a);
-void liberer_graphe(Noeud *racine);
-int traiter_donnees_histo(const char *fichier, Usine **racine);
-void ecrire_donnees_histo(Usine *racine, const char *fichier, const char *type);
+void liberer_arbre(Noeud *racine);
+int lecture(const char *fichier, Usine **racine);
+void ecrire(Usine *racine, const char *fichier, const char *type);
 float calculer_fuites(const char *fichier, const char *id_usine);
 
 #endif
