@@ -25,7 +25,7 @@ typedef struct Noeud {
     char *id;
     float pourcentage_fuite;
     int nb_enfants;
-    int est_libere;
+    int est_visite;
     Lien *liste_enfants;
     int equilibre;
     struct Noeud *avl_gauche;
