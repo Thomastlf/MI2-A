@@ -5,11 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct Lien {
-    struct Noeud *enfant;
-    struct Lien *suivant;
-} Lien;
-
 typedef struct Usine {
     char *id;
     long capa_max;
@@ -18,7 +13,6 @@ typedef struct Usine {
     int equilibre;
     struct Usine *gauche;
     struct Usine *droite;
-    Lien *stockages_initiaux;
 } Usine;
 
 typedef struct Noeud {
@@ -31,6 +25,11 @@ typedef struct Noeud {
     struct Noeud *avl_gauche;
     struct Noeud *avl_droite;
 } Noeud;
+
+typedef struct Lien {
+    struct Noeud *enfant;
+    struct Lien *suivant;
+} Lien;
 
 int max2(int a, int b);
 int min2(int a, int b);
