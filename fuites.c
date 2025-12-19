@@ -112,7 +112,6 @@ double calculer_fuites(const char* nom_fichier,const char* usine_id){
     fuites=calculer_fuites_rec(noeud_arbre,volume_initial);
   }
   liberer_arbre_usine(racine_usine);
-  liberer_arbre(noeud_arbre);
   liberer_avl_noeud(noeud_avl);
   return fuites;
 }
