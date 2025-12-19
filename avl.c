@@ -233,7 +233,7 @@ Noeud* creer_noeud(const char *id, float fuite) {
     n->id = dupliquer_chaine(id);
     n->pourcentage_fuite = fuite;
     n->nb_enfants = 0;
-    n->est_libere = 0;
+    n->est_visite = 0;
     n->liste_enfants = NULL;
     n->avl_gauche = NULL;
     n->avl_droite = NULL;
