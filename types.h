@@ -42,5 +42,6 @@ void liberer_arbre(Noeud *racine);
 int lecture(const char *fichier, Usine **racine);
 void ecrire(Usine *racine, const char *fichier, const char *type);
 float calculer_fuites(const char *fichier, const char *id_usine);
+void verifier_erreur_fichier(FILE* fichier);
 
 #endif
