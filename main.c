@@ -23,8 +23,8 @@ int main(int argc, char *argv[]) {
             return 2;
         }
         
-        // Appel fonction : traiter_donnees_histo
-        lecture(fichier_donnees, &racine_avl)
+        // Appel fonction : lecture
+        lecture(fichier_donnees, &racine_avl);
 
         char nom_fichier_sortie[256];
         snprintf(nom_fichier_sortie, sizeof(nom_fichier_sortie), "vol_%s.dat", option_cmd);
