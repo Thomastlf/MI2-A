@@ -16,6 +16,7 @@ void lecture(const char* nom_fichier,Usine** usine){//procédure qui va lire tou
   FILE* fichier=fopen(nom_fichier,"r");
   verifier_erreur_fichier(fichier);
   char ligne[TAILLE_LIGNE];
+                                      int compteur_lignes_lues = 0;int compteur_usines_trouvees = 0;
   while(fgets(ligne,TAILLE_LIGNE,fichier)!=NULL){//tant qu'il y a des lignes non traitées dans le fichier..
     ligne[strcspn(ligne,"\r\n")] ='\0';//enlève le retour à la ligne
     char* colonne[5];
@@ -33,6 +34,7 @@ void lecture(const char* nom_fichier,Usine** usine){//procédure qui va lire tou
       continue;
     }
     if(!strcmp(colonne[0],"-") && !strcmp(colonne[2],"-") && !strcmp(colonne[4],"-")){//si la ligne correspond à une usine
+                                compteur_usines_trouvees++;
       Usine* est_dans_avl=trouver_usine(*usine,colonne[1]);
       if(est_dans_avl==NULL){//usine pas encore crée
         int h = 0;
@@ -57,7 +59,7 @@ void lecture(const char* nom_fichier,Usine** usine){//procédure qui va lire tou
         est_dans_avl->total_traite=est_dans_avl->total_traite+atof(colonne[3])*(1-atof(colonne[4])/100);
       }
     }
-  }
+  }printf("Usines détectées dans le fichier : %d\n", compteur_usines_trouvees);
   fclose(fichier);
 }
 
