@@ -306,7 +306,6 @@ void liberer_arbre_usine(Usine *a) {
         liberer_arbre_usine(a->gauche);
         liberer_arbre_usine(a->droite);
         if (a->id != NULL) free(a->id);
-        Lien *courant = a->stockages_initiaux;
         while (courant != NULL) {
             Lien *temp = courant;
             courant = courant->suivant;
