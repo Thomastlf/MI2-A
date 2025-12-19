@@ -57,7 +57,7 @@ void lecture(const char* nom_fichier,Usine** usine){//procédure qui va lire tou
         est_dans_avl->total_traite=est_dans_avl->total_traite+atof(colonne[3])*(1-atof(colonne[4])/100);
       }
     }
-  }printf("Usines détectées dans le fichier : %d\n", compteur_usines_trouvees);
+  }
   fclose(fichier);
 }
 
