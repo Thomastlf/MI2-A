@@ -37,7 +37,7 @@ Usine* creer_usine(const char* id, long capa);
 Usine* inserer_usine(Usine *a, Usine *nouvelle, int *h);
 Noeud* creer_noeud(const char* id, float fuite);
 Noeud* inserer_noeud_avl(Noeud *a, Noeud *nouv, int *h);
-Noeud* trovuer_noeud_avl(Noeud *racine, const char *id);
+Noeud* trouver_noeud_avl(Noeud *racine, const char *id);
 void ajouter_enfant(Noeud *parent, Noeud *enfant);
 void lecture(const char *fichier, Usine **racine);
 void liberer_arbre_usine(Usine *a);
