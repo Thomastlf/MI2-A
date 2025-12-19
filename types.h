@@ -15,12 +15,10 @@ typedef struct Usine {
     long capa_max;
     long total_capte;
     long total_traite;
-    
-    int equilibre;          // Changement de nom (ex-hauteur) pour ton AVL
+    int equilibre;
     struct Usine *gauche;
     struct Usine *droite;
-    
-    Lien *stockages_initiaux; // Gardé pour la liaison au réseau
+    Lien *stockages_initiaux;
 } Usine;
 
 typedef struct Noeud {
@@ -28,12 +26,11 @@ typedef struct Noeud {
     float pourcentage_fuite;
     int nb_enfants;
     int est_libere;
-    Lien *liste_enfants;    // La liste chaînée du graphe
-    int equilibre;          // Changement de nom pour ton AVL de recherche
+    Lien *liste_enfants;
+    int equilibre;
     struct Noeud *avl_gauche;
     struct Noeud *avl_droite;
 } Noeud;
-
 
 int max2(int a, int b);
 int min2(int a, int b);
@@ -43,8 +40,6 @@ Usine* inserer_usine(Usine *a, Usine *nouvelle, int *h);
 Noeud* inserer_noeud_avl(Noeud *a, Noeud *nouv, int *h);
 void liberer_arbre_usine(Usine *a);
 void liberer_graphe(Noeud *racine);
-
-// Fonctions que tes potes doivent coder (on les laisse ici pour le main)
 int traiter_donnees_histo(const char *fichier, Usine **racine);
 void ecrire_donnees_histo(Usine *racine, const char *fichier, const char *type);
 float calculer_fuites(const char *fichier, const char *id_usine);
