@@ -81,9 +81,9 @@ double calculer_fuites_rec(Noeud* noeud,double volume_entrant){
   double fuite_troncon_actuel=volume_entrant*(noeud->pourcentage_fuite/100.0);
   double total_fuites = fuite_troncon_actuel;
   double volume_restant = volume_entrant - fuite_troncon_actuel;
-  if (noeud->nombre_enfants > 0) {
-    double volume_par_enfant = volume_restant / (double)noeud->nombre_enfants;
-    Lien *lien = noeud->enfants;
+  if (noeud->nb_enfants > 0) {
+    double volume_par_enfant = volume_restant / (double)noeud->nb_enfants;
+    Lien *lien = noeud->liste_enfants;
     while (lien != NULL) {
       total_fuites += calculer_fuites_rec(lien->enfant, volume_par_enfant);
       lien = lien->suivant;
