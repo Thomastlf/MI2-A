@@ -321,15 +321,15 @@ void liberer_arbre(Noeud *racine) {
         return;
     }
 
-    if (racine->est_libere == 1) {
+    if (racine->est_visite == 1) {
         return;
     }
 
-    racine->est_libere = 1;
+    racine->est_visite = 1;
     Lien *courant = racine->liste_enfants;
 
     while (courant != NULL) {
-        liberer_graphe(courant->enfant);
+        liberer_arbre(courant->enfant);
         
         Lien *temp = courant;
         courant = courant->suivant;
