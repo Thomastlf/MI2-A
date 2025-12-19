@@ -35,8 +35,9 @@ void lecture(const char* nom_fichier,Usine** usine){//procédure qui va lire tou
     if(!strcmp(colonne[0],"-") && !strcmp(colonne[2],"-") && !strcmp(colonne[4],"-")){//si la ligne correspond à une usine
       Usine* est_dans_avl=trouver_usine(*usine,colonne[1]);
       if(est_dans_avl==NULL){//usine pas encore crée
+        int h = 0;
         Usine* nouveau=creer_usine(colonne[1],atof(colonne[3]));
-        *usine=inserer_usine(*usine,nouveau);
+        *usine=inserer_usine(*usine,nouveau,&h);
       }
       else{
         est_dans_avl->capa_max=atof(colonne[3]);
@@ -46,7 +47,8 @@ void lecture(const char* nom_fichier,Usine** usine){//procédure qui va lire tou
       Usine* est_dans_avl=trouver_usine(*usine,colonne[2]);
       if(est_dans_avl==NULL){//usine pas encore créer
         Usine* nouveau=creer_usine(colonne[2],0);
-        *usine=inserer_usine(*usine,nouveau);
+        int h=0;
+        *usine=inserer_usine(*usine,nouveau,&h);
         nouveau->total_capte=nouveau->total_capte+atof(colonne[3]);
         nouveau->total_traite=nouveau->total_traite+atof(colonne[3])*(1-atof(colonne[4])/100);
       }
