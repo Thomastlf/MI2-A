@@ -5,31 +5,34 @@
 #include <stdlib.h>
 #include <string.h>
 
-//on déclare avant les structures car elles s'utilisent entre elles
-typedef struct Lien {
-    struct Noeud *enfant;
-    struct Lien *suivant;
+
+//on déclare avant noeud car il faut noeud pour créer lien et inversement
+typedef struct noeud Noeud;
+
+typedef struct lien {
+    struct noeud *enfant;
+    struct lien *suivant;
 } Lien;
 
-typedef struct Usine {
+typedef struct usine {
     char *id;
     long capa_max;
     long total_capte;
     long total_traite;
     int equilibre;
-    struct Usine *gauche;
-    struct Usine *droite;
+    struct usine *gauche;
+    struct usine *droite;
 } Usine;
 
-typedef struct Noeud {
+typedef struct noeud {
     char *id;
     float pourcentage_fuite;
     int nb_enfants;
     int est_visite;
     Lien *liste_enfants;
     int equilibre;
-    struct Noeud *avl_gauche;
-    struct Noeud *avl_droite;
+    struct noeud *avl_gauche;
+    struct noeud *avl_droite;
 } Noeud;
 
 void verifier_erreur_fichier(FILE* fichier);
