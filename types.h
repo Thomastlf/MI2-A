@@ -5,8 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct noeud;//on décalre noeud avant car lien doit savoir qu'il existe
-
 typedef struct Lien {
     struct Noeud *enfant;
     struct Lien *suivant;
