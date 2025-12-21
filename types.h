@@ -7,30 +7,30 @@
 
 struct noeud;//on décalre noeud avant car lien doit savoir qu'il existe
 
-typedef struct lien {
-    struct noeud *enfant;
-    struct lien *suivant;
+typedef struct Lien {
+    struct Noeud *enfant;
+    struct Lien *suivant;
 } Lien;
 
-typedef struct usine {
+typedef struct Usine {
     char *id;
     long capa_max;
     long total_capte;
     long total_traite;
     int equilibre;
-    struct usine *gauche;
-    struct usine *droite;
+    struct Usine *gauche;
+    struct Usine *droite;
 } Usine;
 
-typedef struct noeud {
+typedef struct Noeud {
     char *id;
     float pourcentage_fuite;
     int nb_enfants;
     int est_visite;
     Lien *liste_enfants;
     int equilibre;
-    struct noeud *avl_gauche;
-    struct noeud *avl_droite;
+    struct Noeud *avl_gauche;
+    struct Noeud *avl_droite;
 } Noeud;
 
 void verifier_erreur_fichier(FILE* fichier);
