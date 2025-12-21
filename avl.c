@@ -314,27 +314,6 @@ void liberer_arbre_usine(Usine *a) {
     }
 }
 
-void liberer_arbre(Noeud *racine) {
-    if (racine == NULL) {
-        return;
-    }
-
-    if (racine->est_visite == 1) {
-        return;
-    }
-
-    racine->est_visite = 1;
-    Lien *courant = racine->liste_enfants;
-
-    while (courant != NULL) {
-        liberer_arbre(courant->enfant);
-        
-        Lien *temp = courant;
-        courant = courant->suivant;
-        free(temp);
-    }
-}
-
 void liberer_avl_noeud(Noeud *racine) {
     if (racine == NULL) {
         return;
