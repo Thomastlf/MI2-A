@@ -5,44 +5,48 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct Lien {
-    struct Noeud *enfant;
-    struct Lien *suivant;
+//on déclare avant les structures car elles s'utilisent entre elles
+typedef struct liste Liste;
+typedef struct noeud Noeud;
+
+typedef struct lien {
+    struct noeud *enfant;
+    struct lien *suivant;
 } Lien;
 
-typedef struct Usine {
+typedef struct usine {
     char *id;
     long capa_max;
     long total_capte;
     long total_traite;
     int equilibre;
-    struct Usine *gauche;
-    struct Usine *droite;
+    struct usine *gauche;
+    struct usine *droite;
 } Usine;
 
-typedef struct Noeud {
+typedef struct noeud {
     char *id;
     float pourcentage_fuite;
     int nb_enfants;
     int est_visite;
     Lien *liste_enfants;
     int equilibre;
-    struct Noeud *avl_gauche;
-    struct Noeud *avl_droite;
+    struct noeud *avl_gauche;
+    struct noeud *avl_droite;
 } Noeud;
 
 void verifier_erreur_fichier(FILE* fichier);
-Usine* trouver_usine(Usine *root, const char *id);
+Usine* trouver_usine(Usine* racine, const char* id);
 Usine* creer_usine(const char* id, long capa);
-Usine* inserer_usine(Usine *a, Usine *nouvelle, int *h);
+Usine* inserer_usine(Usine* a, Usine* nouvelle, int* h);
 Noeud* creer_noeud(const char* id, float fuite);
-Noeud* inserer_noeud_avl(Noeud *a, Noeud *nouv, int *h);
-Noeud* trouver_noeud_avl(Noeud *racine, const char *id);
-void ajouter_enfant(Noeud *parent, Noeud *enfant);
-void lecture(const char *fichier, Usine **racine);
-void liberer_arbre_usine(Usine *a);
+Noeud* inserer_noeud_avl(Noeud* a, Noeud *nouveau, int* h);
+Noeud* trouver_noeud_avl(Noeud* racine, const char* id);
+void ajouter_enfant(Noeud* parent, Noeud* enfant);
+void lecture(const char* nom_fichier, Usine** usine);
+void liberer_arbre_usine(Usine* a);
 void liberer_avl_noeud(Noeud *racine);
-void ecrire(Usine *racine, const char *fichier, const char *type);
-double calculer_fuites(const char *fichier, const char *id_usine);
+void ecrire(Usine* usine, const char* nom_fichier, const char* type);
+double calculer_fuites(const char* nom_fichier, const char* id_usine);
 
 #endif
