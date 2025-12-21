@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+// définition des variables utiles lors des différentes rotations 
 int max2(int a, int b) {
     if (a > b) {
         return a;
@@ -37,6 +38,7 @@ int max3(int a, int b, int c) {
     }
 }
 
+
 char* dupliquer_chaine(const char *s) {
     if (s == NULL) {
         return NULL;
@@ -53,7 +55,7 @@ Usine* trouver_usine(Usine *racine, const char *id) {
     if (racine == NULL) {
         return NULL;
     }
-    if (strcmp(racine->id, id) == 0) {
+    if (strcmp(racine->id, id) == 0) { // on compare les deux id grâce a strcmp
         return racine;
     }
     if (strcmp(id, racine->id) < 0) {
@@ -241,13 +243,14 @@ Noeud* creer_noeud(const char *id, float fuite) {
     return n;
 }
 
+// on met à jour la hauteur dans chaque cas afin de vérifier l'équilibre
 Noeud* inserer_noeud_avl(Noeud *a, Noeud *nouveau, int *h) {
     if (a == NULL) {
         *h = 1; 
         return nouveau;
     }
 
-    int comp = strcmp(nouveau->id, a->id);
+    int comp = strcmp(nouveau->id, a->id);  
 
     if (comp < 0) {
         a->avl_gauche = inserer_noeud_avl(a->avl_gauche, nouveau, h);
@@ -301,6 +304,7 @@ void ajouter_enfant(Noeud *parent, Noeud *enfant) {
     parent->nb_enfants = parent->nb_enfants + 1;
 }
 
+// on libère les allocations dynamiques utilisées afin de limiter au mieux la taille de la mémoire
 void liberer_arbre_usine(Usine *a) {
     if (a != NULL) {
         liberer_arbre_usine(a->gauche);
