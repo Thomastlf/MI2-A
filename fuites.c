@@ -5,7 +5,7 @@
 
 #define TAILLE_LIGNE 512
 
-Noeud* lire_fuites(const char* nom_fichier, const char* usine_id, Noeud** noeud) {
+Noeud* lire_fuites(const char* nom_fichier, const char* usine_id, Noeud** noeud) {#fonction qui lit le fichier et remplit les structures nécéssaire au calcul des fuites
   FILE* fichier=fopen(nom_fichier, "r");
   verifier_erreur_fichier(fichier);
   Noeud* racine_arbre=creer_noeud(usine_id, 0.0);
@@ -70,7 +70,7 @@ Noeud* lire_fuites(const char* nom_fichier, const char* usine_id, Noeud** noeud)
   return racine_arbre;
 }
 
-double calculer_fuites_rec(Noeud* noeud,double volume_entrant){
+double calculer_fuites_rec(Noeud* noeud,double volume_entrant){#fonction qui calcule récursivement le calcul de fuite d'un réseau
   if(noeud==NULL || volume_entrant<=0.0){
     return 0.0;
   }
@@ -93,7 +93,7 @@ double calculer_fuites_rec(Noeud* noeud,double volume_entrant){
   return total_fuites;
 }
 
-double calculer_fuites(const char* nom_fichier,const char* usine_id){
+double calculer_fuites(const char* nom_fichier,const char* usine_id){#fonction qui gère le calcul de fuite de l'usine
   Usine* racine_usine=NULL;
   lecture(nom_fichier,&racine_usine);
   Usine* usine=trouver_usine(racine_usine,usine_id);
