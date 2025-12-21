@@ -40,7 +40,7 @@ fi
 
 if [ "$commande" == "histo" ]; then #si la commande est un histo..
   	if [ "$parametre" != "max" ] && [ "$parametre" != "src" ] && [ "$parametre" != "real" ]; then
-    	echo "Erreur. Dans le cas de l'histogramme le deuxième argument doit être max, src ou real."
+    	echo "Erreur. Dans le cas de l'histogramme le troisème argument doit être max, src ou real."
     	exit_script 5
   	fi
   	fichier_sortie="vol_${parametre}.dat"
